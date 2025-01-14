@@ -26,11 +26,14 @@ import java.util.Properties;
 
 import org.piangles.backbone.services.Locator;
 import org.piangles.core.util.abstractions.AbstractConfigProvider;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class MsgConfigProvider extends AbstractConfigProvider
 {
 	private static final String COMPONENT_ID = "fd5f51bc-5a14-4675-9df4-982808bb106b";
 	private Map<String, PartitionerAlgorithm> partitionerAlgorithmForTopics = null;
+	public static final String KAFKA = "kafka";
+	private static final String BOOTSTRAP_SERVERS = "bootstrap.servers";
 
 	public MsgConfigProvider(Map<String, PartitionerAlgorithm> partitionerAlgorithmForTopics)
 	{
@@ -45,6 +48,12 @@ public class MsgConfigProvider extends AbstractConfigProvider
 		partitionerAlgorithmForTopics.keySet().stream().forEach(key -> {
 			props.put(key, partitionerAlgorithmForTopics.get(key));
 		});
+		if(props.containsKey(KAFKA)){
+			String valueString = props.getProperty(KAFKA);
+			ObjectMapper objectMapper = new ObjectMapper();
+			Map<String, String> kafka = objectMapper.readValue(valueString, Map.class);
+			props.put(BOOTSTRAP_SERVERS, kafka.get(BOOTSTRAP_SERVERS));
+		}
 		return props;
 	}
 }
