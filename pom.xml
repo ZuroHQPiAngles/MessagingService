@@ -5,7 +5,7 @@
 	<groupId>org.piangles.backbone.services</groupId>
 	<artifactId>messagingservice</artifactId>
 	<packaging>jar</packaging>
-	<version>0.1</version>
+	<version>0.2</version>
 
 	<name>Messaging Service</name>
 	<properties>
@@ -73,12 +73,6 @@
             <version>2.17.1</version>
             <scope>compile</scope>
         </dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-			<version>2.17.1</version>
-			<scope>compile</scope>
-		</dependency>
 	</dependencies>
 
 	<build>
